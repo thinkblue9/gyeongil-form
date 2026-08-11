@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2027학년도 학교장추천전형 지원 희망원</title>
+<style>
+  :root{
+    --bd:#d8dbe0; --bd2:#eceef1; --bg:#f5f6f8; --txt:#1c1f23; --sub:#6b7280;
+    --accent:#1f4e8c; --accent-l:#e8f0fb; --warn:#c0261a; --warn-bg:#fef3f2;
+    --ok:#0f7b4f; --ok-bg:#e9f7f0;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:0 0 130px; background:var(--bg); color:var(--txt);
+    font-family:"Malgun Gothic","맑은 고딕","Apple SD Gothic Neo",-apple-system,sans-serif;
+    font-size:15px; line-height:1.65;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:24px 16px}
+  header{background:#fff; border:1px solid var(--bd); border-radius:10px; padding:26px 28px; margin-bottom:18px}
+  header h1{margin:0 0 6px; font-size:23px; letter-spacing:-.4px}
+  header .school{color:var(--sub); font-size:14px}
+  .badge-grad{display:inline-block; background:var(--accent-l); color:var(--accent);
+    border-radius:20px; padding:4px 14px; font-size:13px; font-weight:700; margin-bottom:10px}
+
+  /* ===== 마감 배너 ===== */
+  .deadline{
+    background:var(--warn); color:#fff; border-radius:12px; padding:22px 26px; margin-bottom:18px;
+    display:flex; align-items:center; gap:22px; flex-wrap:wrap;
+    box-shadow:0 3px 14px rgba(192,38,26,.25);
+  }
+  .deadline .dl-lab{font-size:15px; font-weight:700; opacity:.9; letter-spacing:1px}
+  .deadline .dl-date{font-size:38px; font-weight:900; line-height:1.15; letter-spacing:-1px}
+  .deadline .dl-sub{font-size:15px; font-weight:700; opacity:.95}
+  .deadline .dl-left{flex:none}
+  .deadline .dl-right{flex:1; min-width:240px; font-size:14.5px; line-height:1.7}
+
+  /* ===== 규정 읽기 버튼 ===== */
+  .rulecta{
+    background:#fff; border:3px solid var(--accent); border-radius:12px; padding:22px 26px; margin-bottom:18px;
+    display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  }
+  .rulecta .rc-txt{flex:1; min-width:230px}
+  .rulecta .rc-txt b{font-size:19px; display:block; margin-bottom:4px; color:var(--accent)}
+  .rulecta .rc-txt span{font-size:14.5px; color:#333}
+  .bigbtn{
+    background:var(--accent); color:#fff; border:none; border-radius:10px;
+    padding:18px 34px; font-size:18px; font-weight:800; cursor:pointer; font-family:inherit;
+    white-space:nowrap; box-shadow:0 3px 10px rgba(31,78,140,.28);
+  }
+  .bigbtn:hover{background:#173d6e}
+  .req-badge{display:inline-block; background:var(--warn); color:#fff; border-radius:4px;
+    padding:2px 9px; font-size:12.5px; font-weight:800; margin-right:7px; vertical-align:2px}
+  .rc-state{margin-top:9px; font-size:14px; font-weight:800; color:var(--warn)}
+  .rc-state.done{color:var(--ok)}
+
+  /* ===== 본인 확인 경고 ===== */
+  .selfcheck{
+    background:#fffaf0; border:2px solid #e8b93b; border-radius:12px; padding:20px 26px; margin-bottom:18px;
+  }
+  .selfcheck h3{margin:0 0 10px; font-size:18px; color:#8a5a00}
+  .selfcheck ul{margin:0; padding-left:22px; font-size:15px}
+  .selfcheck li{margin:6px 0}
+  .selfcheck b{color:var(--warn)}
+
+  /* ===== 구분 선택 ===== */
+  .kindpick .req{color:var(--warn)}
+  .kindrow{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; margin-top:14px}
+  .kindbtn{
+    border:2px solid var(--bd); border-radius:10px; padding:16px 18px; cursor:pointer;
+    display:block; background:#fff; transition:border-color .12s, background .12s;
+  }
+  .kindbtn:hover{border-color:var(--accent)}
+  .kindbtn.on{border-color:var(--accent); background:var(--accent-l)}
+  .kindbtn input{margin-right:8px; width:18px; height:18px; vertical-align:-3px; accent-color:var(--accent)}
+  .kindbtn .kb-t{font-size:17px; font-weight:800}
+  .kindbtn .kb-d{display:block; font-size:13.5px; color:var(--sub); margin-top:5px; margin-left:26px}
+
+  /* ===== 담임 의논 안내 (재학생) ===== */
+  .homeroom{
+    background:#eef6ff; border:2px solid #7aa9e0; border-radius:12px; padding:20px 26px; margin-bottom:18px; display:none;
+  }
+  .homeroom.show{display:block}
+  .homeroom h3{margin:0 0 8px; font-size:18px; color:#124a86}
+  .homeroom ul{margin:0; padding-left:22px; font-size:15px}
+  .homeroom li{margin:6px 0}
+  .homeroom b{color:var(--warn)}
+
+  .notice{background:#fffdf5; border:1px solid #f0e2b6; border-radius:8px; padding:16px 20px; margin-top:16px; font-size:14px}
+  .notice ul{margin:6px 0 0; padding-left:20px}
+  .notice li{margin:4px 0}
+  .notice b{color:var(--warn)}
+
+  section{background:#fff; border:1px solid var(--bd); border-radius:10px; padding:24px 28px; margin-bottom:18px}
+  section > h2{margin:0 0 4px; font-size:18px; letter-spacing:-.3px}
+  section > .desc{color:var(--sub); font-size:13.5px; margin-bottom:16px}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:14px 18px}
+  .field label{display:block; font-size:13.5px; font-weight:700; margin-bottom:5px}
+  .field label .req{color:var(--warn); margin-left:2px}
+  .field input, .field select, textarea{
+    width:100%; padding:10px 12px; border:1px solid var(--bd); border-radius:6px;
+    font-family:inherit; font-size:15px; background:#fff; color:var(--txt);
+  }
+  .field input:focus, .field select:focus, textarea:focus{outline:2px solid var(--accent-l); border-color:var(--accent)}
+  .field .hint{font-size:12.5px; color:var(--sub); margin-top:4px}
+  .field.err input, .field.err select{border-color:var(--warn); background:var(--warn-bg)}
+  .only-s, .only-g{display:none}
+  body.kind-s .only-s{display:block}
+  body.kind-g .only-g{display:block}
+  body.kind-s li.only-s{display:list-item}
+  body.kind-g li.only-g{display:list-item}
+  body.kind-s label.only-s{display:flex}
+  body.kind-g label.only-g{display:flex}
+  body.kind-g u.only-g, body.kind-s u.only-s{display:inline}
+
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:12px}
+  .toolbar input[type=text]{flex:1; min-width:200px; padding:10px 12px; border:1px solid var(--bd); border-radius:6px; font-size:15px; font-family:inherit}
+  .chip{border:1px solid var(--bd); background:#fff; border-radius:20px; padding:7px 15px; font-size:13.5px; cursor:pointer; font-family:inherit}
+  .chip.on{background:var(--accent); color:#fff; border-color:var(--accent)}
+
+  .counter{font-size:15px; font-weight:800}
+  .counter.full{color:var(--warn)}
+
+  .tblwrap{border:1px solid var(--bd); border-radius:8px; overflow-x:auto; -webkit-overflow-scrolling:touch}
+  table{width:100%; border-collapse:collapse; font-size:14px}
+  thead th{background:#f2f4f7; padding:11px 8px; text-align:left; font-size:13px;
+    border-bottom:1px solid var(--bd); white-space:nowrap; position:sticky; top:0; z-index:2}
+  tbody td{padding:9px 8px; border-bottom:1px solid var(--bd2); vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr.picked{background:var(--accent-l)}
+  tbody tr.blocked{background:#fafafa; color:#9aa0a6}
+  tbody tr.blocked .uni{color:#9aa0a6}
+  .uni{font-weight:700}
+  .no-td{color:var(--sub); width:38px; text-align:center}
+  .cb-td{width:44px; text-align:center}
+  input[type=checkbox]{width:19px; height:19px; cursor:pointer; accent-color:var(--accent)}
+  input[type=checkbox]:disabled{cursor:not-allowed}
+  .pr-td{width:84px}
+  .pr-td select{width:100%; padding:6px 4px; border:1px solid var(--bd); border-radius:5px; font-size:14px; font-family:inherit}
+  .pr-td select:disabled{background:#f5f6f8; color:#c0c4c9}
+  .major-td{width:170px}
+  .major-td input{width:100%; padding:6px 8px; border:1px solid var(--bd); border-radius:5px; font-size:14px; font-family:inherit}
+  .major-td input:disabled{background:#f5f6f8}
+  .tag-no{display:inline-block; background:#fbe9e7; color:var(--warn); border-radius:4px;
+    padding:1px 6px; font-size:11.5px; font-weight:700; margin-left:6px; white-space:nowrap}
+  .flag{display:inline-block; background:#fff4e5; color:#8a5300; border-radius:4px; padding:1px 6px; font-size:11.5px; margin-left:4px}
+
+  /* ===== 직접 입력 ===== */
+  .custombox{border:2px dashed var(--bd); border-radius:8px; padding:16px 20px; margin-top:16px; background:#fcfcfd}
+  .custombox h3{margin:0 0 6px; font-size:15.5px}
+  .custombox .cb-desc{font-size:13.5px; color:var(--sub); margin-bottom:12px; line-height:1.6}
+  .custombox .cb-desc b{color:var(--warn)}
+  .crow{display:flex; gap:10px; align-items:center; margin-bottom:9px; flex-wrap:wrap}
+  .crow input[type=text]{padding:8px 10px; border:1px solid var(--bd); border-radius:6px; font-size:14.5px; font-family:inherit}
+  .crow .c-uni{flex:1; min-width:150px}
+  .crow .c-tra{flex:1.3; min-width:170px}
+  .crow select{width:96px; padding:8px 4px; border:1px solid var(--bd); border-radius:6px; font-size:14px; font-family:inherit}
+  .crow input:disabled, .crow select:disabled{background:#f5f6f8; color:#b6bcc4}
+
+  .summary{background:var(--accent-l); border:1px solid #c4d6ef; border-radius:8px; padding:16px 20px; margin-top:16px; font-size:14.5px}
+  .summary h3{margin:0 0 8px; font-size:15px; color:var(--accent)}
+  .summary ol{margin:0; padding-left:22px}
+  .summary li{margin:4px 0}
+  .summary .empty{color:var(--sub)}
+
+  .footbar{position:fixed; left:0; right:0; bottom:0; background:#fff; border-top:1px solid var(--bd);
+    padding:13px 16px; box-shadow:0 -2px 12px rgba(0,0,0,.08); z-index:50}
+  .footinner{max-width:1080px; margin:0 auto; display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+  .footinner .status{flex:1; min-width:180px; font-size:14px; color:var(--sub)}
+  .footinner .status b{color:var(--warn)}
+  button.primary{background:var(--accent); color:#fff; border:none; border-radius:8px; padding:15px 38px;
+    font-size:17px; font-weight:800; cursor:pointer; font-family:inherit}
+  button.primary:hover{background:#173d6e}
+  button.primary:disabled{background:#a9b4c2; cursor:not-allowed}
+  button.ghost{background:#fff; color:var(--txt); border:1px solid var(--bd); border-radius:8px;
+    padding:15px 20px; font-size:15px; cursor:pointer; font-family:inherit}
+
+  .msg{padding:14px 18px; border-radius:8px; margin-bottom:14px; font-size:15px; display:none}
+  .msg.show{display:block}
+  .msg.error{background:var(--warn-bg); border:2px solid #f0a89f; color:var(--warn)}
+  .msg ul{margin:6px 0 0; padding-left:20px}
+
+  /* ===== 규정 모달 ===== */
+  .ovl{position:fixed; inset:0; background:rgba(15,20,28,.62); z-index:200; display:none;
+    align-items:flex-start; justify-content:center; padding:26px 14px; overflow-y:auto}
+  .ovl.show{display:flex}
+  .modal{background:#fff; border-radius:12px; max-width:900px; width:100%; box-shadow:0 12px 44px rgba(0,0,0,.3)}
+  .modal-hd{position:sticky; top:0; background:var(--accent); color:#fff; padding:18px 26px;
+    border-radius:12px 12px 0 0; display:flex; align-items:center; justify-content:space-between; gap:14px; z-index:3}
+  .modal-hd h2{margin:0; font-size:19px}
+  .modal-hd button{background:rgba(255,255,255,.18); color:#fff; border:1px solid rgba(255,255,255,.45);
+    border-radius:7px; padding:9px 18px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; white-space:nowrap}
+  .modal-bd{padding:26px 30px 34px; font-size:15px; line-height:1.75}
+  .modal-bd h3{font-size:17px; margin:26px 0 8px; color:var(--accent); border-bottom:2px solid var(--accent-l); padding-bottom:5px}
+  .modal-bd h3:first-child{margin-top:0}
+  .modal-bd h4{font-size:15px; margin:16px 0 5px}
+  .modal-bd p{margin:5px 0}
+  .modal-bd ul{margin:5px 0; padding-left:22px}
+  .modal-bd li{margin:4px 0}
+  .modal-bd .hl{background:#fff5f4; border-left:4px solid var(--warn); padding:10px 14px; margin:10px 0; font-weight:700; color:var(--warn)}
+  .modal-bd table{width:100%; border-collapse:collapse; margin:10px 0; font-size:14px}
+  .modal-bd th, .modal-bd td{border:1px solid var(--bd); padding:7px 9px; text-align:center}
+  .modal-bd th{background:#f2f4f7}
+  .modal-ft{border-top:1px solid var(--bd); padding:18px 26px; text-align:center; position:sticky; bottom:0; background:#fff; border-radius:0 0 12px 12px}
+
+  /* ===== 완료 화면 ===== */
+  .done{display:none; padding:40px 16px 60px}
+  .done.show{display:block}
+  .done .tick{font-size:52px; color:var(--ok); text-align:center}
+  .done h2{margin:12px 0 6px; font-size:24px; text-align:center}
+  .done .sub{color:var(--sub); text-align:center; font-size:15px}
+  .stepbox{
+    background:#fff; border:3px solid var(--accent); border-radius:14px; padding:24px 28px; margin:20px 0;
+    box-shadow:0 3px 14px rgba(31,78,140,.14);
+  }
+  .stepbox .stepno{display:inline-block; background:var(--accent); color:#fff; border-radius:20px;
+    padding:5px 18px; font-size:14px; font-weight:800; margin-bottom:11px}
+  .stepbox h3{margin:0 0 8px; font-size:21px; color:var(--accent); letter-spacing:-.4px}
+  .stepbox .sd{margin:0; font-size:15px; line-height:1.7; color:#333}
+  .stepbox .sd b{color:var(--warn)}
+  .stepbox .btnrow{margin-top:16px; display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+  .stepbox .btnrow button, .stepbox .btnrow a{
+    background:var(--accent); color:#fff; border:none; border-radius:9px; padding:15px 28px;
+    font-size:16.5px; font-weight:800; cursor:pointer; font-family:inherit; text-decoration:none; display:inline-block}
+  .stepbox .btnrow .alt{background:#fff; color:var(--txt); border:1px solid var(--bd)}
+  .stepbox .fnhint{margin-top:11px; font-size:13.5px; color:var(--sub)}
+  .howto{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:14px}
+  .howto .ht{background:var(--accent-l); border:1px solid #c4d6ef; border-radius:9px;
+    padding:13px 16px; font-size:14px; line-height:1.65; text-align:left}
+  .howto .ht b{color:var(--accent)}
+
+  .attach{background:#fff8e6; border:2px solid #e8b93b; border-radius:10px; padding:16px 20px;
+    margin-top:16px; font-size:15.5px; line-height:1.85; text-align:left}
+  .attach b{color:#8a5a00}
+  .attach .clip{background:#8a5a00; color:#fff; border-radius:5px; padding:2px 9px; font-weight:800}
+  .warnattach{background:var(--warn-bg); border:2px solid #f0a89f; border-radius:9px;
+    padding:13px 18px; margin-top:14px; font-size:15px; color:var(--warn); font-weight:700}
+
+  /* ===== 휴대폰 사용 안내 ===== */
+  .phonefirst{
+    background:#0f7b4f; color:#fff; border-radius:12px; padding:18px 24px; margin-bottom:18px;
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap; box-shadow:0 3px 14px rgba(15,123,79,.22);
+  }
+  .phonefirst .pf-ico{font-size:34px; flex:none}
+  .phonefirst .pf-t{flex:1; min-width:230px; font-size:15px; line-height:1.7}
+  .phonefirst .pf-t b{font-size:17.5px; display:block; margin-bottom:3px}
+
+  .smsbox{
+    background:#fff; border:4px solid var(--warn); border-radius:14px; padding:28px 30px; margin:26px 0;
+    box-shadow:0 4px 18px rgba(192,38,26,.18); text-align:center;
+  }
+  .smsbox .step{display:inline-block; background:var(--warn); color:#fff; border-radius:20px;
+    padding:5px 18px; font-size:14px; font-weight:800; margin-bottom:12px}
+  .smsbox h3{margin:0 0 6px; font-size:24px; color:var(--warn); letter-spacing:-.5px}
+  .smsbox .who{font-size:17px; margin-bottom:14px}
+  .smsbox .who b{font-size:19px}
+  .smsbox .tel{font-size:40px; font-weight:900; letter-spacing:1px; color:var(--txt); margin:8px 0 4px; display:block; text-decoration:none}
+  .smsbox .tel:hover{color:var(--accent)}
+  .smsbox .reply{
+    background:var(--ok-bg); border:2px solid #7ec7a4; border-radius:10px;
+    padding:16px 20px; margin-top:18px; font-size:19px; font-weight:800; color:#0b5c3b; line-height:1.5;
+  }
+  .smsbox .reply b{font-size:22px; color:var(--ok)}
+  .smsbox .reply span{display:block; font-size:14.5px; font-weight:600; color:#2c6e52; margin-top:6px}
+  .smsbox .note{font-size:14.5px; color:var(--sub); margin-top:12px}
+  .smsbox .sample{background:#f7f8fa; border:1px dashed var(--bd); border-radius:8px;
+    padding:12px 16px; font-size:15px; margin-top:14px; display:inline-block; text-align:left}
+  .smsbox .btnrow{margin-top:16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
+  .smsbox .btnrow a, .smsbox .btnrow button{
+    background:var(--warn); color:#fff; border:none; border-radius:9px; padding:14px 26px;
+    font-size:16px; font-weight:800; cursor:pointer; font-family:inherit; text-decoration:none; display:inline-block}
+  .smsbox .btnrow .alt{background:#fff; color:var(--txt); border:1px solid var(--bd)}
+  .done pre{text-align:left; background:#fff; border:1px solid var(--bd); border-radius:10px;
+    padding:20px; white-space:pre-wrap; font-size:14px; font-family:inherit; max-height:360px; overflow:auto}
+  .done .prehd{font-size:15px; font-weight:700; margin:24px 0 8px}
+
+  /* ===== 생성된 희망원 이미지 ===== */
+  .imgprev{margin-top:15px; border:1px solid var(--bd); border-radius:9px; overflow:hidden; background:#fff}
+  .imgprev img{display:block; width:100%; height:auto}
+  .savehint{margin-top:12px; font-size:14.5px; color:#333; line-height:1.7; text-align:left;
+    background:var(--accent-l); border:1px solid #c4d6ef; border-radius:9px; padding:13px 16px}
+  .savehint b{color:var(--warn)}
+
+  @media (max-width:760px){
+    .major-td{display:none} thead th.major-th{display:none}
+    .no-td{display:none}                       /* 연번 — 좁은 화면에서는 숨김 */
+    section{padding:20px 15px}
+    header{padding:20px 16px}
+    .deadline .dl-date{font-size:30px}
+    .smsbox .tel{font-size:31px}
+    .bigbtn{width:100%; text-align:center}
+
+    /* 좁은 화면: 표 대신 카드형 목록으로 전환 */
+    .tblwrap{overflow:visible}
+    table, tbody, tr, td{display:block; width:auto}
+    thead{display:none}
+    tbody tr{
+      position:relative; padding:12px 76px 12px 42px;
+      border-bottom:1px solid var(--bd2);
+    }
+    tbody tr:last-child{border-bottom:none}
+    tbody td{border:none; padding:1px 0}
+
+    .cb-td{position:absolute; left:11px; top:14px; width:auto; padding:0}
+    .pr-td{position:absolute; right:9px; top:11px; width:64px; padding:0}
+    .pr-td select{padding:6px 3px; font-size:13px}
+
+    .uni{font-size:15.5px; font-weight:800; line-height:1.35}
+    .tra-td{font-size:13.5px; color:#333; margin-top:2px}
+    .min-td, .cnt-td{display:inline-block; font-size:12.5px; color:var(--sub); margin-top:3px}
+    .min-td{margin-right:12px}
+    .min-td:before{content:"수능최저 "; font-weight:700}
+    .cnt-td:before{content:"추천인원 "; font-weight:700}
+    .tag-no{margin-left:6px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+
+  <header>
+    <span class="badge-grad" id="badgeKind">재학생 · 졸업생 공용</span>
+    <h1>2027학년도 대입 수시모집 학교장추천전형 지원 희망원</h1>
+    <div class="school">창원경일고등학교</div>
+  </header>
+
+  <!-- 구분 선택 -->
+  <section class="kindpick">
+    <h2>0. 본인 구분 선택 <span class="req">*</span></h2>
+    <div class="desc">먼저 본인이 재학생인지 졸업생인지 선택하세요. 선택에 따라 인적사항 입력란이 바뀝니다.</div>
+    <div class="kindrow">
+      <label class="kindbtn" id="kindLabelS">
+        <input type="radio" name="kind" value="재학생" id="k_s">
+        <span class="kb-t">재학생</span>
+        <span class="kb-d">현재 창원경일고 3학년 재학 중</span>
+      </label>
+      <label class="kindbtn" id="kindLabelG">
+        <input type="radio" name="kind" value="졸업생" id="k_g">
+        <span class="kb-t">졸업생</span>
+        <span class="kb-d">창원경일고를 졸업한 지원자</span>
+      </label>
+    </div>
+  </section>
+
+  <!-- 휴대폰 사용 안내 -->
+  <div class="phonefirst">
+    <div class="pf-ico">📱</div>
+    <div class="pf-t">
+      <b>반드시 휴대폰으로 작성하세요.</b>
+      제출은 <b style="display:inline; font-size:15px">문자에 희망원 이미지를 첨부</b>하는 방식이라 휴대폰에서만 끝까지 진행할 수 있습니다.
+      컴퓨터로 작성하면 문자 발송이 되지 않습니다.
+    </div>
+  </div>
+
+  <!-- 마감 배너 -->
+  <div class="deadline">
+    <div class="dl-left">
+      <div class="dl-lab">제출 마감</div>
+      <div class="dl-date">8월 23일</div>
+      <div class="dl-sub" id="dday"></div>
+    </div>
+    <div class="dl-right">
+      <b>마감 이후에 제출된 희망원은 어떤 이유로도 접수하지 않습니다.</b><br>
+      작성을 마치면 <b>희망원 이미지 저장 → 3학년부장(방기주 010-2499-8626)에게 문자로 이미지 첨부해 발송</b> 순서로 진행하세요.<br>
+      <b>지원자·보호자 서명은 본인 명의 휴대폰 문자 발송으로 대체합니다.</b><br>
+      <b>확인 후 답 문자를 보내 드립니다.</b> 답 문자를 받아야 접수가 완료된 것입니다.
+    </div>
+  </div>
+
+  <!-- 규정 읽기 -->
+  <div class="rulecta">
+    <div class="rc-txt">
+      <b><span class="req-badge">필수</span> 작성 전에 선발 규정 전문을 반드시 열어서 읽어야 합니다.</b>
+      <span>추천 대상자는 정량평가 900점 + 정성평가 100점으로 순위를 정합니다.
+      <u class="only-g">졸업생은 총점의 5%가 감점</u>되며, 징계·출결 사유가 있으면 추천에서 배제됩니다.
+      <b style="color:var(--warn)">규정 전문을 열어보지 않으면 희망원을 제출할 수 없습니다.</b></span>
+      <div class="rc-state" id="ruleState">아직 열어보지 않았습니다.</div>
+    </div>
+    <button type="button" class="bigbtn" id="btnRule">📖 선발 규정 전문 보기</button>
+  </div>
+
+  <!-- 본인 확인 -->
+  <div class="selfcheck">
+    <h3>⚠ 세부 지원 자격은 반드시 본인이 직접 확인하세요</h3>
+    <ul>
+      <li>이 표의 <b>수능최저·추천인원은 요약</b>입니다. 대학별 최종 모집요강과 다를 수 있습니다.</li>
+      <li class="only-g"><b>졸업연도 제한</b> — 대학에 따라 "졸업 후 2년 이내" 등 연도 제한이 있습니다. 본인이 해당되는지 각 대학 모집요강에서 확인하세요.</li>
+      <li><b>계열·모집단위 제한</b> — 의약학·사범·예체능 등은 별도 자격이나 인원 제한이 있을 수 있습니다.</li>
+      <li class="only-g">졸업생 지원 가능 여부, 검정고시·재수 이상 허용 여부 등도 <b>각 대학 2027학년도 수시 모집요강</b>이 기준입니다.</li>
+      <li>확인하지 않고 지원해 발생하는 불이익은 본인 책임입니다. 애매하면 <b>제출 전에 3학년부로 문의</b>하세요.</li>
+    </ul>
+  </div>
+
+  <!-- 재학생: 담임 의논 안내 -->
+  <div class="homeroom" id="homeroomBox">
+    <h3>👩‍🏫 재학생은 반드시 담임 선생님과 의논한 뒤 제출하세요</h3>
+    <ul>
+      <li><b>담임 선생님과 상의하지 않은 단독 제출은 접수하지 않습니다.</b> 지원 대학과 우선순위를 정하기 전에 반드시 담임 선생님과 먼저 의논하세요.</li>
+      <li>본인의 교과 성적·출결·봉사·독서 상황에 따라 추천 순위가 달라지므로, 담임 선생님과 함께 <b>실제로 추천받을 가능성이 있는 대학</b>을 골라야 합니다.</li>
+      <li>징계 이력이나 미인정 결석·결과가 있으면 추천 대상에서 배제됩니다. 본인 상황을 담임 선생님과 먼저 확인하세요.</li>
+      <li>아래 인적사항의 <b>담임 선생님 성함</b>란은 의논을 마친 뒤 작성하는 항목입니다.</li>
+    </ul>
+  </div>
+
+  <div class="msg error" id="errBox"></div>
+
+  <!-- 인적사항 -->
+  <section>
+    <h2>1. 인적사항</h2>
+    <div class="desc">학교생활기록부 기재 내용과 동일하게 작성해 주세요.</div>
+    <div class="grid">
+      <div class="field"><label>성명 <span class="req">*</span></label><input type="text" id="f_name" placeholder="홍길동"></div>
+      <div class="field"><label>생년월일 <span class="req">*</span></label><input type="text" id="f_birth" placeholder="2007-03-15" inputmode="numeric"></div>
+
+      <!-- 졸업생 전용 -->
+      <div class="field only-g"><label>졸업연도 <span class="req">*</span></label>
+        <select id="f_year">
+          <option value="">선택</option>
+          <option>2026</option><option>2025</option><option>2024</option>
+          <option>2023</option><option>2022</option><option>2021</option>
+          <option>2020년 이전</option>
+        </select></div>
+      <div class="field only-g"><label>졸업 당시 3학년 반 <span class="req">*</span></label><input type="text" id="f_class" placeholder="예: 5반 12번"></div>
+
+      <!-- 재학생 전용 -->
+      <div class="field only-s"><label>현재 학년·반·번호 <span class="req">*</span></label><input type="text" id="f_sclass" placeholder="예: 3학년 5반 12번"></div>
+      <div class="field only-s"><label>담임 선생님 성함 <span class="req">*</span></label><input type="text" id="f_teacher" placeholder="예: 김경일"><div class="hint">담임 선생님과 의논을 마친 뒤 작성하세요.</div></div>
+
+      <div class="field"><label>본인 연락처 <span class="req">*</span></label><input type="tel" id="f_phone" placeholder="010-0000-0000"></div>
+      <div class="field"><label>본인 이메일</label><input type="email" id="f_email" placeholder="example@naver.com"><div class="hint">선택 항목입니다. 적지 않아도 제출할 수 있습니다.</div></div>
+      <div class="field"><label>보호자 성명 <span class="req">*</span></label><input type="text" id="f_pname" placeholder="홍판서"></div>
+      <div class="field"><label>보호자 연락처 <span class="req">*</span></label><input type="tel" id="f_pphone" placeholder="010-0000-0000"></div>
+    </div>
+  </section>
+
+  <!-- 대학 선택 -->
+  <section>
+    <h2>2. 지원 희망 대학 선택</h2>
+    <div class="desc">최대 4개까지 체크한 뒤, 체크한 항목마다 우선순위(1~4)를 서로 다르게 지정하세요.</div>
+
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="대학명 · 전형명 검색">
+      <button type="button" class="chip" id="chipMin">수능최저 없음만</button>
+      <button type="button" class="chip" id="chipSel">선택한 것만</button>
+      <span class="counter" id="counter">선택 0 / 4</span>
+    </div>
+
+    <div class="tblwrap">
+      <table>
+        <thead>
+          <tr>
+            <th class="cb-td">선택</th>
+            <th class="no-td">연번</th>
+            <th>대학명</th>
+            <th>전형명</th>
+            <th>수능최저</th>
+            <th>추천인원</th>
+            <th class="major-th">희망 모집단위</th>
+            <th>우선순위</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- 표에 없는 대학 직접 입력 -->
+    <div class="custombox">
+      <h3>✍ 표에 없는 대학 직접 입력</h3>
+      <div class="cb-desc">위 목록에 없는 대학의 학교장추천 전형에 지원하고 싶으면 여기에 직접 적으세요.
+        <b>대학명과 전형명을 정확히</b> 쓰고, 수능최저·추천인원·졸업생 지원 가능 여부는 본인이 모집요강에서 확인해야 합니다.
+        직접 입력한 대학도 위에서 선택한 대학과 합쳐 <b>최대 4개</b>까지만 가능합니다.</div>
+
+      <div class="crow">
+        <input type="checkbox" id="cbc1" data-n="c1">
+        <input type="text" id="cuc1" class="c-uni" placeholder="대학명 (예: 부산대)" disabled>
+        <input type="text" id="ctc1" class="c-tra" placeholder="전형명 (예: 학교장추천)" disabled>
+        <select id="prc1" data-n="c1" disabled></select>
+      </div>
+      <div class="crow">
+        <input type="checkbox" id="cbc2" data-n="c2">
+        <input type="text" id="cuc2" class="c-uni" placeholder="대학명" disabled>
+        <input type="text" id="ctc2" class="c-tra" placeholder="전형명" disabled>
+        <select id="prc2" data-n="c2" disabled></select>
+      </div>
+    </div>
+
+    <div class="summary">
+      <h3>선택 현황 (우선순위 순)</h3>
+      <ol id="sumList"><li class="empty" style="list-style:none; margin-left:-22px">아직 선택한 대학이 없습니다.</li></ol>
+    </div>
+  </section>
+
+  <!-- 비고 -->
+  <section>
+    <h2>3. 비고 / 추가 기재사항</h2>
+    <div class="desc">선택 사유, 특기사항, 학교에 전달할 내용이 있으면 자유롭게 적어 주세요. (선택)</div>
+    <textarea id="f_note" rows="5" placeholder="예) 3순위 대학은 학과 변경 가능성이 있습니다."></textarea>
+  </section>
+
+  <section>
+    <h2>4. 확인 및 동의</h2>
+    <div style="margin-top:12px">
+      <label style="display:flex; gap:11px; align-items:flex-start; cursor:pointer; margin-bottom:14px; font-size:15px">
+        <input type="checkbox" id="f_rule" style="margin-top:3px; flex:none" disabled>
+        <span><b>학교장추천 대상자 선발 규정 전문을 읽고 이해했습니다.</b>
+        (정량·정성평가 방식, 졸업생 5% 감점, 추천 자격 제한 포함)
+        <span style="color:var(--warn); font-weight:700">*</span>
+        <a href="#" id="lnkRule2" style="color:var(--accent); margin-left:6px">규정 전문 열기</a>
+        <span id="ruleLock" style="display:block; color:var(--warn); font-weight:700; font-size:13.5px; margin-top:3px">
+          🔒 규정 전문을 끝까지 열어본 뒤에 체크할 수 있습니다.</span></span>
+      </label>
+
+      <label class="only-s" style="gap:11px; align-items:flex-start; cursor:pointer; margin-bottom:14px; font-size:15px">
+        <input type="checkbox" id="f_homeroom" style="margin-top:3px; flex:none">
+        <span><b>담임 선생님과 지원 대학·우선순위를 의논하고 결정했습니다.</b> (재학생 필수)
+        <span style="color:var(--warn); font-weight:700">*</span></span>
+      </label>
+      <label style="display:flex; gap:11px; align-items:flex-start; cursor:pointer; margin-bottom:14px; font-size:15px">
+        <input type="checkbox" id="f_self" style="margin-top:3px; flex:none">
+        <span><b>계열·모집단위·지원 자격 등 세부 사항을 각 대학 모집요강에서 직접 확인했습니다.</b>
+        <span style="color:var(--warn); font-weight:700">*</span></span>
+      </label>
+      <label style="display:flex; gap:11px; align-items:flex-start; cursor:pointer; font-size:15px">
+        <input type="checkbox" id="f_agree" style="margin-top:3px; flex:none">
+        <span>상기 본인은 2027학년도 대입 수시전형 학교장추천전형 추천대상자 선발에 지원하고자 위와 같이 희망원을 제출하며,
+        기재 내용이 사실과 다름이 없음을 확인합니다. 또한 추천 대상자 선발을 위한 개인정보(성명, 생년월일, 연락처, 학교생활기록부)
+        수집·이용에 동의합니다. <span style="color:var(--warn); font-weight:700">*</span>
+        <span style="display:block; margin-top:6px; color:var(--warn); font-weight:700; font-size:14px">
+          ※ 지원자 및 보호자의 서명은 본인 명의 휴대폰 문자 발송으로 대체합니다.</span></span>
+      </label>
+    </div>
+  </section>
+
+  <div class="footbar">
+    <div class="footinner">
+      <div class="status" id="status"><b>마감 8월 23일.</b> 인적사항과 희망 대학을 모두 입력한 뒤 제출하세요.</div>
+      <button type="button" class="ghost" id="btnCopy">내용 복사</button>
+      <button type="button" class="primary" id="btnSend">작성 완료 · 제출하기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 완료 화면 ===== -->
+<div class="wrap done" id="doneScreen">
+  <div class="tick">&#10003;</div>
+  <h2>작성이 완료되었습니다</h2>
+  <div class="sub">아직 제출된 것이 아닙니다. 아래 <b>2단계를 순서대로</b> 진행해야 접수됩니다.</div>
+
+  <!-- STEP 1 : 이미지 저장 -->
+  <div class="stepbox">
+    <span class="stepno">STEP 1</span>
+    <h3>희망원 이미지를 저장하세요</h3>
+    <p class="sd">아래에 희망원이 <b>이미지(PNG)</b>로 만들어졌습니다. 버튼을 눌러 휴대폰에 저장하세요.</p>
+
+    <div class="imgprev"><img id="docImg" alt="희망원 이미지"></div>
+
+    <div class="btnrow">
+      <button type="button" id="btnSaveImg">📷 이미지 저장하기</button>
+      <button type="button" class="alt" id="btnShareImg" style="display:none">📤 문자로 바로 보내기</button>
+    </div>
+
+    <div class="savehint">
+      저장이 안 되면 <b>위 이미지를 손가락으로 길게 누른 뒤</b>
+      <b>"이미지 저장"</b>(아이폰) 또는 <b>"이미지 다운로드"</b>(갤럭시)를 선택하세요.
+    </div>
+    <div class="fnhint">저장 파일 이름 : <b id="fnameHint"></b></div>
+  </div>
+
+  <!-- STEP 2 : 문자로 PDF 첨부 발송 -->
+  <div class="smsbox">
+    <span class="step">STEP 2 · 마지막 단계</span>
+    <h3>저장한 이미지를 문자에 첨부해서 보내세요</h3>
+    <div class="who">받는 사람 — 3학년부장 <b>방기주</b> 선생님</div>
+    <a class="tel" href="tel:01024998626" id="telLink">010-2499-8626</a>
+
+    <div class="attach">
+      <b>❶ 아래 '문자 보내기'를 누르면</b> 위 번호로 문자 쓰기 창이 열리고 내용이 자동으로 채워집니다.<br>
+      <b>❷ 문자 입력창의 <span class="clip">클립(📎) 또는 +</span> 버튼을 눌러</b>
+      STEP 1에서 저장한 <b>희망원 이미지를 첨부</b>하세요.<br>
+      <b>❸ 전송을 누르면 제출 완료입니다.</b>
+    </div>
+
+    <div class="sample" id="smsSample"></div>
+    <div class="btnrow">
+      <a href="#" id="smsLink">📱 문자 보내기</a>
+      <button type="button" class="alt" id="btnCopySms">문자 내용 복사</button>
+    </div>
+    <div class="warnattach">⚠ <b>희망원 이미지를 첨부하지 않으면 접수되지 않습니다.</b> 전송 전에 첨부됐는지 꼭 확인하세요.</div>
+    <div class="reply">✉ 확인 후 <b>답 문자</b>를 보내 드립니다.<br><span>답 문자를 받아야 접수가 완료된 것입니다. 하루 이상 답이 없으면 다시 연락해 주세요.</span></div>
+    <div class="note">문자 쓰기 창이 자동으로 열리지 않으면, 문자 앱에서 위 번호로 직접 보내면 됩니다.
+      내용은 <b>'문자 내용 복사'</b>를 눌러 붙여넣으세요.</div>
+  </div>
+
+  <div class="btnrow" style="text-align:center; margin-top:22px">
+    <button type="button" class="alt" id="btnBack" style="background:#fff; color:var(--txt); border:1px solid var(--bd); border-radius:9px; padding:13px 26px; font-size:15px; cursor:pointer; font-family:inherit">← 돌아가서 수정하기</button>
+  </div>
+
+  <div class="prehd">제출한 내용 (보관용)</div>
+  <pre id="doneBody"></pre>
+</div>
+
+<!-- ===== 규정 모달 ===== -->
+<div class="ovl" id="ruleOvl">
+  <div class="modal">
+    <div class="modal-hd">
+      <h2>2027학년도 대입 수시모집 학교장추천전형 대상자 추천 규정</h2>
+      <button type="button" class="mclose">닫기 ✕</button>
+    </div>
+    <div class="modal-bd">
+      <p style="color:#6b7280; margin-bottom:18px">창원경일고등학교</p>
+
+      <h3>1. 목적</h3>
+      <p>가. 대학입학전형 중 학교장추천전형 대상자를 추천함에 있어 객관성과 신뢰도를 높이고 형평성을 고려하여 공정하게 추천 대상자를 선발하는 데에 있다.</p>
+      <p>나. 학교장추천 대상자를 추천하기 위해 교과 및 비교과 영역을 종합적으로 평가하여 학생들이 학업 및 비교과 활동에 적극적으로 참여하도록 유도함으로써 공교육 내실화와 학교 교육의 정상화를 도모하는 데 있다.</p>
+
+      <h3>2. 방침</h3>
+      <p><b>가. (추천 기준)</b> 본교에 재학하는 학생으로 해당 대학의 학교장추천 전형에 응시하고자 하는 경우 해당 학생이 추천 희망원을 학교장 추천위원회에 제출한다. (단, 졸업생도 추천 가능한 대학에는 졸업생도 추천 가능하다.)</p>
+      <p><b>나. (추천 공지)</b> 학교장 추천 전형이 있는 경우, 각 대학별 추천 내용을 전체 학생에게 사전에 공지하고, 공지 후 기한 내에 희망원을 제출한 학생 중 추천 인원을 선발한다.</p>
+      <p><b>다. (선발 방식)</b> 본교의 학교장추천 기준은 학교생활기록부를 대상으로 하며 정량평가와 정성평가 항목으로 구성하고 항목에 따라 점수를 산출한 후 이를 종합하여 학교장 추천위원회에서 최종적으로 추천 대상자를 선정한다.</p>
+      <div class="hl">재학생과 졸업생의 구분 없이 지원을 허용하는 학교장추천 전형에서 추천 인원 제한이 있는 경우, 졸업생의 총점에 5%를 감하여(졸업생 총점 × 0.95로 산출) 반영하여 재학생의 불이익이 최소화되도록 한다.</div>
+      <p><b>라. (추천 비율)</b> 각 대학의 학교장추천 인원을 따르며 계열당 인원 할당을 하지 않는다. 단, 대학에서 계열별 인원을 명시한 경우는 이를 따른다.</p>
+      <p><b>마. (복수 추천)</b> 학교장추천 전형에 대한 복수 지원은 1인당 4회로 제한한다. 단, 추천 인원이 미충족된 경우와 특수 목적 대학인 경우에는 추천위원회에서 대상 학생이 대학에서 요구하는 인재상에 부합하는지 판단하고 학교장이 4회 이상 복수 추천 여부를 결정한다.</p>
+      <p><b>바. (추천 포기)</b> 추천 대상자로 선발된 자가 포기원을 제출하거나 결격 사유가 발생하는 경우, 차순위 학생을 추천 대상자로 한다.</p>
+      <p><b>사. (특별분야 추천)</b> 기타 대학별 특기, 경력 등 특별한 분야에 대한 학교장 추천을 의뢰한 경우에는 별도의 기준(특수 대학에서 요구하는 인재상에 부합하는 학생 선발)을 마련하여 학교장 추천위원회의 심의를 거쳐 학교장이 결정한다.</p>
+
+      <h3>3. 학교장 추천 규정 및 추천위원회 구성</h3>
+      <p><b>가.</b> 대학입학전형 학교장 추천 대상자 선발 규정은 초·중등교육법 제32조 ①의 11항(대학입학특별전형 중 학교장 추천에 관한 사항)에 의거 학교운영위원회의 심의를 통해 결정한다.</p>
+      <p><b>나.</b> 본교는 학교장 추천위원회를 구성하여 대학입학전형의 학교장추천 대상자 선발 업무를 담당하도록 하고, 학교장 추천위원회는 9인으로 구성한다. 위원장 1명(교감), 간사(3학년부장), 위원(3학년 담임교사 6명, 진로부장)을 구성원으로 한다.</p>
+
+      <h3>4. 학교장 추천 대상자 선발 과정</h3>
+      <h4>가. 선발 과정</h4>
+      <ul>
+        <li>본교에 재학(졸업생을 추천하는 경우 졸업생 포함)하는 학생으로 해당 대학의 학교장 추천 전형에 응시하고자 하는 경우 해당 학생이 추천 희망원을 학교장 추천위원회에 제출한다.</li>
+        <li>학급 담임교사는 해당 학생의 학교생활기록부를 학교장 추천위원회에 제출한다. 단, 학교생활기록부에 기재되지 않은 내용이 있을 때에는 해당 증빙서류를 제출할 수 있다.</li>
+        <li>정성평가가 반영되는 대학의 경우, 위원들의 블라인드 채점 방식을 통해 정성평가 점수를 산출하여 추가로 100점을 반영하고 이를 통해 대상자 순위를 결정한다.</li>
+        <li>학교장 추천위원회는 추천 규정의 세부 선발 방식에 의거하여 대학별 추천 대상자를 최종 선정한다.</li>
+      </ul>
+      <h4>나. 추천 자격 제한</h4>
+      <div class="hl">
+        ① 입학 후 교내의 학생선도위원회 및 학교폭력자치위원회, 교권보호위원회에서 <u>교내 봉사 이상의 처분(징계)</u>을 받은 적이 있는 학생은 추천 대상에서 배제한다.<br><br>
+        ② 출결 사항에서 <u>'미인정 결과', '미인정 결석', '학교폭력'</u> 중 하나라도 포함된 학생은 추천 대상에서 배제한다.
+      </div>
+
+      <h3>5. 세부 선발 방식</h3>
+      <table>
+        <tr><th colspan="6">정량평가 (900점)</th><th>정성평가<br>(100점)</th><th rowspan="2">합계</th></tr>
+        <tr><th>교과 성적</th><th>봉사 시간</th><th>전공관련<br>독서</th><th>출결</th><th>선택교과<br>계열적합성</th><th></th><th>학교생활기록부<br>우수성</th></tr>
+        <tr><td>500점</td><td>100점</td><td>100점</td><td>100점</td><td>100점</td><td></td><td>100점</td><td><b>1000점</b></td></tr>
+      </table>
+
+      <h4>가. 정량평가 (900점, 5개 영역 합산)</h4>
+      <p><b>(1) 교과 석차 등급 환산점 (500점)</b></p>
+      <ul>
+        <li>평가 범위 : 3학년 1학기까지(5개 학기) 학년 전체가 이수한 과목 성적 대상</li>
+        <li>평가 지표 : 3개 대학 환산점(고려대, 서강대, 연세대) — 소수점 셋째 자리까지 반영</li>
+        <li>계산식 1. 3개 대학 환산점 합(270점 만점, 각 대학 90점 만점)<br>
+          = 고려대 환산점 + 서강대 환산점 × 0.09 + 연세대 환산점 × 0.9</li>
+        <li>계산식 2. 500점 변환 = 계산식1의 점수 × 500 / 270</li>
+        <li>예시) 고려대 89.780, 서강대 992.31, 연세대 98.277 → (89.78 + 89.307 + 88.449) × 500/270 = <b>495.437</b></li>
+        <li><b>과학기술원(KAIST, GIST, DGIST)</b>은 3학년 1학기(5개 학기) 수학·과학 교과의 Z점수로 순위를 산출한다. 계산식 : (수학·과학 Z점수의 평균 / 2) × 500</li>
+        <li><b>사관학교</b>는 총점 1000점 외에 진학 의지(20점), 체력검정 통과 가능성(20점)을 별도 평가한다.</li>
+      </ul>
+
+      <p><b>(2) 봉사시간 (100점)</b> — 고교 재학 기간 중의 봉사활동(단체봉사활동 포함)만 인정, 추천 공지일 기준</p>
+      <table><tr><th>봉사 시간</th><th>배점</th></tr>
+        <tr><td>60시간 이상</td><td>100점</td></tr>
+        <tr><td>40시간 이상 ~ 60시간 이하</td><td>98점</td></tr>
+        <tr><td>40시간 이하</td><td>96점</td></tr></table>
+
+      <p><b>(3) 전공관련독서 (100점)</b> — 학교생활기록부에 도서명이 언급된 사례</p>
+      <table><tr><th>전공관련독서 권수</th><th>배점</th></tr>
+        <tr><td>10권 이상</td><td>100점</td></tr>
+        <tr><td>7권 ~ 9권 이하</td><td>98점</td></tr>
+        <tr><td>6권 미만</td><td>96점</td></tr></table>
+
+      <p><b>(4) 출결 (100점)</b> — 미인정 지각·결과·조퇴 3회를 결석 1회로 계산</p>
+      <table><tr><th>미인정 결석 횟수</th><th>배점</th></tr>
+        <tr><td>0회</td><td>100점</td></tr>
+        <tr><td>1회 ~ 3회</td><td>98점</td></tr>
+        <tr><td>4회 이상</td><td>96점</td></tr></table>
+
+      <p><b>(5) 전공 관련 교과 이수도 (100점)</b> — 서울대·중앙대 필수·권장 과목 이수표에 따라 평정</p>
+      <table><tr><th>이수 정도</th><th>배점</th></tr>
+        <tr><td>권장과목과 필수과목을 모두 이수</td><td>100점</td></tr>
+        <tr><td>필수·권장과목에서 1~2개 누락</td><td>98점</td></tr>
+        <tr><td>필수·권장과목에서 3~4개 누락</td><td>95점</td></tr>
+        <tr><td>필수·권장과목에서 5개 이상 누락</td><td>90점</td></tr></table>
+
+      <h4>나. 정성평가 (100점)</h4>
+      <p>경희대학교 정성평가 채점표를 루브릭으로 변형 활용하여 추천 희망 학생의 학교생활기록부를 블라인드로 평가한다. 루브릭의 점수 간격은 최소화한다.</p>
+      <table>
+        <tr><th>평가요소 (배점)</th><th>탁월</th><th>우수</th><th>양호</th><th>보통</th><th>미흡</th><th>미달</th></tr>
+        <tr><td>학업역량 (40)</td><td>40</td><td>39</td><td>38</td><td>37</td><td>36</td><td>30</td></tr>
+        <tr><td>진로역량·자기주도역량 (40)</td><td>40</td><td>39</td><td>38</td><td>37</td><td>36</td><td>30</td></tr>
+        <tr><td>공동체역량 (20)</td><td>20</td><td>19</td><td>18</td><td>17</td><td>16</td><td>10</td></tr>
+      </table>
+
+      <h4>다. 수능 최저 충족 여부</h4>
+      <div class="hl">
+        ① 3~7월 모의고사 중 <u>한 번도 수능 최저를 충족하지 못한 학생은 탈락</u>시킨다.<br>
+        ② 두 학생이 경합할 때는 수능 최저 충족 횟수로 총점에 가산점을 준다. (6월 모의평가 3점, 교육청 학력평가 1점)
+      </div>
+      <p><b>라.</b> 학교장 추천 대상자 중 동석차 발생 시 위원회에서 재심의를 통해 결정한다.</p>
+
+      <h3>부 칙</h3>
+      <ul>
+        <li>본 규정은 2027학년도 대입 수시전형 학교장추천 대상자 선정 시 적용된다.</li>
+        <li>본 위원회에서 결정한 내용은 내부결재를 거쳐 교내에 공개하고 학교 홈페이지에 탑재하며, 회의록은 학교장의 허가를 받아 공개할 수 있다.</li>
+        <li>추천 과정에서 규정에 적시되어 있지 않은 사항은 학교장 추천위원회에서 협의하여 학교장이 최종 결정한다.</li>
+      </ul>
+    </div>
+    <div class="modal-ft">
+      <button type="button" class="bigbtn mclose">규정을 읽었습니다 · 닫기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== 설정 ===== */
+var TEACHER_TEL  = "010-2499-8626";
+
+/* ===== 대학 목록 (졸업생 지원 불가: no:true) ===== */
+var DATA = [
+ {n:1,  u:"DGIST (디지스트)", t:"학교장추천",            m:"없음",              c:"2명"},
+ {n:2,  u:"GIST (지스트)",    t:"학교장추천",            m:"없음",              c:"2명"},
+ {n:3,  u:"KAIST (카이스트)", t:"학교장추천",            m:"없음",              c:"2명"},
+ {n:4,  u:"가천대",           t:"지역균형",              m:"없음",              c:"제한없음"},
+ {n:5,  u:"가톨릭대",         t:"학교장추천(의예)",      m:"3합4 / 한국사4",    c:"의예 1명"},
+ {n:6,  u:"가톨릭대",         t:"학교장추천(간호·신학)", m:"없음",              c:"제한없음"},
+ {n:7,  u:"가톨릭대",         t:"지역균형전형",          m:"2합6~7",            c:"제한없음"},
+ {n:8,  u:"강남대",           t:"지역균형",              m:"있음 (야간 제외)",  c:"제한없음"},
+ {n:9,  u:"건국대",           t:"KU지역균형",            m:"없음",              c:"제한없음"},
+ {n:10, u:"경기대",           t:"학교장추천",            m:"없음",              c:"20명"},
+ {n:11, u:"경인교대",         t:"학교장추천",            m:"있음",              c:"제한없음"},
+ {n:12, u:"경희대",           t:"지역균형",              m:"2합5 (탐구평균)",   c:"제한없음"},
+ {n:13, u:"고려대",           t:"학교추천",              m:"있음",              c:"12명", no:true},
+ {n:14, u:"광운대",           t:"지역균형",              m:"없음",              c:"제한없음"},
+ {n:15, u:"국민대",           t:"교과우수자",            m:"2합6",              c:"제한없음"},
+ {n:16, u:"단국대",           t:"지역균형 (일반학과)",   m:"2합6",              c:"제한없음"},
+ {n:17, u:"대진대",           t:"학교장추천",            m:"없음",              c:"제한없음"},
+ {n:18, u:"동국대",           t:"학교장추천인재",        m:"없음",              c:"8명"},
+ {n:19, u:"루터대",           t:"지역균형",              m:"없음",              c:"제한없음"},
+ {n:20, u:"명지대",           t:"학교장추천",            m:"없음",              c:"20명 (서울·용인 통합)"},
+ {n:21, u:"삼육대",           t:"학교장추천 (일반)",     m:"2합7",              c:"제한없음"},
+ {n:22, u:"상명대",           t:"고교추천",              m:"없음",              c:"제한없음"},
+ {n:23, u:"서강대",           t:"지역균형",              m:"3등급 3개",         c:"20명", no:true},
+ {n:24, u:"서울과기대",       t:"고교추천",              m:"2합7",              c:"제한없음"},
+ {n:25, u:"서울교대",         t:"학교장추천",            m:"있음",              c:"3%"},
+ {n:26, u:"서울대",           t:"지역균형",              m:"3합7",              c:"2명"},
+ {n:27, u:"서울시립대",       t:"고교추천전형",          m:"3합8",              c:"20명"},
+ {n:28, u:"성균관대",         t:"추천인재",              m:"3합6~7",            c:"제한없음"},
+ {n:29, u:"세종대",           t:"지역균형",              m:"2합5~6",            c:"제한없음"},
+ {n:30, u:"수원대",           t:"고교추천",              m:"있음",              c:"제한없음"},
+ {n:31, u:"숭실대",           t:"교과우수자",            m:"2합6",              c:"제한없음"},
+ {n:32, u:"아주대",           t:"고교추천",              m:"2합5",              c:"제한없음"},
+ {n:33, u:"연세대",           t:"추천형",                m:"3합7~8",            c:"10명", no:true},
+ {n:34, u:"울산대",           t:"학교장추천 특별전형",   m:"내신 3등급 이내",   c:"제한없음", no:true},
+ {n:35, u:"을지대",           t:"지역균형",              m:"3합5 · 2합8 · 1개4", c:"-"},
+ {n:36, u:"인천대",           t:"지역균형",              m:"없음",              c:"제한없음"},
+ {n:37, u:"인하대",           t:"지역균형",              m:"2합5~6",            c:"제한없음"},
+ {n:38, u:"중앙대",           t:"지역균형",              m:"3합7",              c:"20명"},
+ {n:39, u:"차의과학대",       t:"지역균형선발",          m:"약학 3합6",         c:"제한없음"},
+ {n:40, u:"평택대",           t:"PTU추천",               m:"없음",              c:"제한없음"},
+ {n:41, u:"한경국립대",       t:"지역균형",              m:"없음",              c:"제한없음"},
+ {n:42, u:"한국공학대",       t:"지역균형",              m:"없음",              c:"제한없음"},
+ {n:43, u:"한국외국어대",     t:"학교장추천",            m:"2합4",              c:"10명"},
+ {n:44, u:"한국외대 (글로벌)", t:"학교장추천",           m:"2합6",              c:"10명"},
+ {n:45, u:"한국항공대",       t:"학교장추천",            m:"없음",              c:"제한없음"},
+ {n:46, u:"한성대",           t:"지역균형",              m:"없음",              c:"제한없음"},
+ {n:47, u:"한신대",           t:"학교장추천",            m:"없음",              c:"제한없음"},
+ {n:48, u:"한양대",           t:"추천형 (교과)",         m:"3합7",              c:"11%"},
+ {n:49, u:"한양대",           t:"추천형 (종합)",         m:"3합7",              c:"11%"},
+ {n:50, u:"한양대 (ERICA)",   t:"지역균형선발",          m:"2합7",              c:"제한없음"},
+ {n:51, u:"홍익대",           t:"학교장추천자",          m:"2합5",              c:"10명"}
+];
+
+var MAX = 4;
+var $ = function(id){ return document.getElementById(id); };
+var state = { onlyMin:false, onlySel:false, q:"" };
+var picks = {};        // n -> {pr, mj}
+var KIND = "";         // "재학생" | "졸업생"
+var ruleRead = false;  // 규정 전문 열람 여부
+var CUSTOM = ["c1","c2"];
+
+function isCustom(n){ return String(n).charAt(0) === "c"; }
+function customD(id){
+  return { n:id, custom:true,
+    u: ($("cu"+id).value || "").trim(),
+    t: ($("ct"+id).value || "").trim() };
+}
+function findD(n){
+  if (isCustom(n)) return customD(n);
+  for (var i=0;i<DATA.length;i++) if (DATA[i].n == n) return DATA[i];
+  return null;
+}
+
+/* ---------- 재학생 / 졸업생 구분 ---------- */
+function setKind(k){
+  KIND = k;
+  document.body.classList.toggle("kind-s", k === "재학생");
+  document.body.classList.toggle("kind-g", k === "졸업생");
+  $("kindLabelS").classList.toggle("on", k === "재학생");
+  $("kindLabelG").classList.toggle("on", k === "졸업생");
+  $("badgeKind").textContent = k ? k + "용" : "재학생 · 졸업생 공용";
+  $("homeroomBox").classList.toggle("show", k === "재학생");
+
+  // 졸업생 지원 불가 대학이 이미 선택돼 있으면 해제
+  if (k === "졸업생"){
+    var removed = [];
+    for (var n in picks){
+      var d = findD(n);
+      if (d && d.no){ removed.push(d.u); delete picks[n]; }
+    }
+    if (removed.length) showErr("졸업생이 지원할 수 없는 대학이 선택 목록에서 해제되었습니다.", removed);
+  }
+  render(); update();
+}
+$("k_s").onchange = function(){ if (this.checked) setKind("재학생"); };
+$("k_g").onchange = function(){ if (this.checked) setKind("졸업생"); };
+
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+/* ---------- D-day ---------- */
+(function(){
+  var now = new Date();
+  var y = now.getFullYear();
+  var due = new Date(y, 7, 23, 23, 59, 59);          // 8월 23일
+  if (now > due) due = new Date(y + 1, 7, 23, 23, 59, 59);
+  var days = Math.ceil((due - now) / 86400000);
+  $("dday").textContent = days > 0 ? "D-" + days : (days === 0 ? "오늘 마감" : "");
+})();
+
+/* ---------- 규정 모달 ---------- */
+function openRule(e){
+  if(e) e.preventDefault();
+  $("ruleOvl").classList.add("show");
+  document.body.style.overflow="hidden";
+  markRuleRead();
+}
+function markRuleRead(){
+  if (ruleRead) return;
+  ruleRead = true;
+  $("f_rule").disabled = false;
+  $("ruleLock").style.display = "none";
+  var st = $("ruleState");
+  st.textContent = "✓ 규정 전문을 열어 보았습니다. 아래 '4. 확인 및 동의'에서 체크해 주세요.";
+  st.className = "rc-state done";
+  $("btnRule").textContent = "📖 선발 규정 다시 보기";
+}
+function closeRule(){ $("ruleOvl").classList.remove("show"); document.body.style.overflow=""; }
+$("btnRule").onclick = openRule;
+$("lnkRule2").onclick = openRule;
+var closers = document.querySelectorAll(".mclose");
+for (var ci=0; ci<closers.length; ci++) closers[ci].onclick = closeRule;
+$("ruleOvl").onclick = function(ev){ if (ev.target === this) closeRule(); };
+document.onkeydown = function(ev){ if (ev.key === "Escape") closeRule(); };
+
+/* ---------- 표 렌더 ---------- */
+function render(){
+  var tb = $("tbody"), html = "";
+  for (var i=0; i<DATA.length; i++){
+    var d = DATA[i];
+    var hay = (d.u + " " + d.t).toLowerCase();
+    if (state.q && hay.indexOf(state.q) === -1) continue;
+    if (state.onlyMin && d.m !== "없음") continue;
+    if (state.onlySel && !picks[d.n]) continue;
+
+    var opts = '<option value="">-</option>';
+    for (var p=1; p<=MAX; p++) opts += '<option value="'+p+'">'+p+'순위</option>';
+
+    var blocked = !!d.no && KIND === "졸업생";
+
+    html += '<tr id="row'+d.n+'" class="'+(blocked?'blocked':'')+'">'
+      + '<td class="cb-td"><input type="checkbox" id="cb'+d.n+'" data-n="'+d.n+'"'+(blocked?' disabled':'')+'></td>'
+      + '<td class="no-td">'+d.n+'</td>'
+      + '<td class="uni">'+esc(d.u)+(blocked?'<span class="tag-no">졸업생 불가</span>':'')+'</td>'
+      + '<td class="tra-td">'+esc(d.t)+(d.flag?'<span class="flag">'+esc(d.flag)+'</span>':'')+'</td>'
+      + '<td class="min-td">'+esc(d.m)+'</td>'
+      + '<td class="cnt-td">'+esc(d.c)+'</td>'
+      + '<td class="major-td"><input type="text" id="mj'+d.n+'" placeholder="학과 (선택)" disabled></td>'
+      + '<td class="pr-td"><select id="pr'+d.n+'" data-n="'+d.n+'" disabled>'+opts+'</select></td>'
+      + '</tr>';
+  }
+  if (!html) html = '<tr><td colspan="8" style="padding:28px; text-align:center; color:#6b7280">검색 결과가 없습니다.</td></tr>';
+  tb.innerHTML = html;
+  restore();
+  bindRows();
+}
+
+function restore(){
+  for (var n in picks){
+    if (isCustom(n)) continue;
+    var cb = $("cb"+n); if (!cb) continue;
+    cb.checked = true;
+    $("pr"+n).disabled = false; $("pr"+n).value = picks[n].pr || "";
+    $("mj"+n).disabled = false; $("mj"+n).value = picks[n].mj || "";
+    $("row"+n).classList.add("picked");
+  }
+}
+
+function bindRows(){
+  var cbs = document.querySelectorAll('#tbody input[type=checkbox]');
+  for (var i=0;i<cbs.length;i++){
+    cbs[i].onchange = function(){
+      var n = this.getAttribute("data-n");
+      if (this.checked){
+        if (countPicks() >= MAX){
+          this.checked = false;
+          showErr("학교장추천전형 복수 지원은 최대 " + MAX + "개까지만 가능합니다. 다른 대학을 해제한 뒤 선택하세요.");
+          return;
+        }
+        picks[n] = {pr:"", mj:""};
+        $("pr"+n).disabled = false;
+        $("mj"+n).disabled = false;
+        $("row"+n).classList.add("picked");
+        autoPriority(n);
+      } else {
+        delete picks[n];
+        $("pr"+n).disabled = true; $("pr"+n).value = "";
+        $("mj"+n).disabled = true; $("mj"+n).value = "";
+        $("row"+n).classList.remove("picked");
+      }
+      hideErr(); update();
+    };
+  }
+  var prs = document.querySelectorAll('#tbody select');
+  for (var j=0;j<prs.length;j++){
+    prs[j].onchange = function(){
+      var n = this.getAttribute("data-n");
+      if (!picks[n]) { this.value = ""; return; }
+      picks[n].pr = this.value;
+      update();
+    };
+  }
+  var mjs = document.querySelectorAll('#tbody .major-td input');
+  for (var k=0;k<mjs.length;k++){
+    mjs[k].oninput = function(){
+      var n = this.id.replace("mj","");
+      if (picks[n]) picks[n].mj = this.value;
+    };
+  }
+}
+
+function countPicks(){ var c=0; for (var k in picks) c++; return c; }
+
+/* ---------- 직접 입력 행 ---------- */
+(function bindCustom(){
+  for (var i=0;i<CUSTOM.length;i++){
+    (function(id){
+      var sel = $("pr"+id), o = '<option value="">-</option>';
+      for (var p=1;p<=MAX;p++) o += '<option value="'+p+'">'+p+'순위</option>';
+      sel.innerHTML = o;
+
+      $("cb"+id).onchange = function(){
+        if (this.checked){
+          if (countPicks() >= MAX){
+            this.checked = false;
+            showErr("학교장추천전형 복수 지원은 최대 " + MAX + "개까지만 가능합니다. 다른 대학을 해제한 뒤 선택하세요.");
+            return;
+          }
+          picks[id] = {pr:"", mj:""};
+          $("cu"+id).disabled = false; $("ct"+id).disabled = false; sel.disabled = false;
+          autoPriority(id);
+          $("cu"+id).focus();
+        } else {
+          delete picks[id];
+          $("cu"+id).disabled = true; $("ct"+id).disabled = true;
+          sel.disabled = true; sel.value = "";
+        }
+        hideErr(); update();
+      };
+      sel.onchange = function(){
+        if (!picks[id]) { this.value = ""; return; }
+        picks[id].pr = this.value; update();
+      };
+      $("cu"+id).oninput = update;
+      $("ct"+id).oninput = update;
+    })(CUSTOM[i]);
+  }
+})();
+
+function autoPriority(n){
+  var used = {};
+  for (var k in picks) if (picks[k].pr) used[picks[k].pr] = 1;
+  for (var p=1; p<=MAX; p++){
+    if (!used[String(p)]){ picks[n].pr = String(p); $("pr"+n).value = String(p); break; }
+  }
+}
+
+function pickList(){
+  var arr = [];
+  for (var n in picks){
+    arr.push({n:n, d:findD(n), pr:picks[n].pr, mj:picks[n].mj, custom:isCustom(n)});
+  }
+  arr.sort(function(a,b){
+    var pa = a.pr ? Number(a.pr) : 99, pb = b.pr ? Number(b.pr) : 99;
+    if (pa !== pb) return pa - pb;
+    if (a.custom !== b.custom) return a.custom ? 1 : -1;
+    return a.custom ? (a.n < b.n ? -1 : 1) : (Number(a.n) - Number(b.n));
+  });
+  return arr;
+}
+
+function update(){
+  var c = countPicks();
+  var el = $("counter");
+  el.textContent = "선택 " + c + " / " + MAX;
+  el.className = "counter" + (c >= MAX ? " full" : "");
+
+  var arr = pickList(), h = "";
+  if (!arr.length){
+    h = '<li class="empty" style="list-style:none; margin-left:-22px">아직 선택한 대학이 없습니다.</li>';
+  } else {
+    for (var i=0;i<arr.length;i++){
+      var a = arr[i];
+      var un = a.d.u || '<span style="color:#c0261a">(대학명을 입력하세요)</span>';
+      var tn = a.d.t || (a.custom ? '<span style="color:#c0261a">(전형명을 입력하세요)</span>' : '');
+      h += '<li value="'+(a.pr||'')+'" style="'+(a.pr?'':'list-style:none; margin-left:-22px')+'">'
+        + (a.pr ? '' : '<b style="color:#c0261a">[순위 미지정] </b>')
+        + '<b>'+(a.d.u ? esc(a.d.u) : un)+'</b> · ' + (a.d.t ? esc(a.d.t) : tn)
+        + (a.custom ? ' <span style="color:#8a5300; font-size:13px">[직접 입력]</span>' : '')
+        + (a.mj ? ' <span style="color:#6b7280">(' + esc(a.mj) + ')</span>' : '')
+        + '</li>';
+    }
+  }
+  $("sumList").innerHTML = h;
+}
+
+/* ---------- 메시지 ---------- */
+function showErr(msg, list){
+  var b = $("errBox");
+  b.innerHTML = "<b>" + esc(msg) + "</b>" + (list && list.length ? "<ul><li>" + list.map(esc).join("</li><li>") + "</li></ul>" : "");
+  b.className = "msg error show";
+  if (window.scrollTo) { try { window.scrollTo({top:0, behavior:"smooth"}); } catch(e){} }
+}
+function hideErr(){ $("errBox").className = "msg error"; }
+
+/* ---------- 검증 ---------- */
+var REQ_COMMON = [
+  ["f_name","성명"], ["f_birth","생년월일"],
+  ["f_phone","본인 연락처"], ["f_pname","보호자 성명"], ["f_pphone","보호자 연락처"]
+];
+var REQ_G = [["f_year","졸업연도"], ["f_class","졸업 당시 3학년 반"]];
+var REQ_S = [["f_sclass","현재 학년·반·번호"], ["f_teacher","담임 선생님 성함"]];
+
+function validate(){
+  var errs = [];
+
+  if (!KIND){
+    errs.push("맨 위에서 재학생 / 졸업생 구분을 먼저 선택하세요.");
+    return errs;
+  }
+
+  var req = REQ_COMMON.concat(KIND === "졸업생" ? REQ_G : REQ_S);
+  for (var i=0;i<req.length;i++){
+    var el = $(req[i][0]);
+    var v = (el.value||"").trim();
+    el.parentNode.classList.toggle("err", !v);
+    if (!v) errs.push(req[i][1] + " 을(를) 입력하세요.");
+  }
+  var em = $("f_email").value.trim();
+  if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) errs.push("본인 이메일 형식이 올바르지 않습니다.");
+
+  var arr = pickList();
+  if (!arr.length) errs.push("지원 희망 대학을 1개 이상 선택하세요.");
+  if (arr.length > MAX) errs.push("지원 희망 대학은 최대 " + MAX + "개까지입니다.");
+
+  var seen = {}, dup = false, missing = false;
+  for (var j=0;j<arr.length;j++){
+    if (!arr[j].pr) missing = true;
+    else if (seen[arr[j].pr]) dup = true;
+    else seen[arr[j].pr] = 1;
+
+    if (arr[j].custom){
+      if (!arr[j].d.u) errs.push("직접 입력한 칸의 대학명을 적거나, 체크를 해제하세요.");
+      else if (!arr[j].d.t) errs.push("직접 입력한 '" + arr[j].d.u + "'의 전형명을 적어 주세요.");
+    }
+  }
+  if (missing) errs.push("선택한 모든 대학에 우선순위를 지정하세요.");
+  if (dup) errs.push("우선순위가 중복되었습니다. 서로 다른 순위를 지정하세요.");
+
+  if (!ruleRead)             errs.push("선발 규정 전문을 아직 열어보지 않았습니다. '선발 규정 전문 보기' 버튼을 눌러 반드시 읽어 주세요.");
+  if (!$("f_rule").checked)  errs.push("선발 규정 전문을 읽고 확인 항목에 체크하세요.");
+  if (KIND === "재학생" && !$("f_homeroom").checked) errs.push("재학생은 담임 선생님과 의논했다는 확인 항목에 체크해야 합니다.");
+  if (!$("f_self").checked)  errs.push("세부 지원 자격(계열·모집단위 등) 직접 확인 항목에 체크하세요.");
+  if (!$("f_agree").checked) errs.push("제출 확인 및 개인정보 수집·이용 동의에 체크하세요.");
+  return errs;
+}
+
+/* ---------- 제출 데이터 ---------- */
+function buildPayload(){
+  var arr = pickList();
+  var nm = $("f_name").value.trim();
+  var who = KIND === "졸업생"
+    ? "(" + $("f_year").value + "년 졸업)"
+    : "(" + $("f_sclass").value.trim() + ")";
+
+  var p = {
+    "_subject": "[학교장추천 희망원·" + (KIND || "미선택") + "] " + nm + " " + who,
+    "구분": KIND || "미선택",
+    "성명": nm,
+    "생년월일": $("f_birth").value.trim()
+  };
+  if (KIND === "졸업생"){
+    p["졸업연도"] = $("f_year").value;
+    p["졸업 당시 3학년 반"] = $("f_class").value.trim();
+  } else {
+    p["현재 학년·반·번호"] = $("f_sclass").value.trim();
+    p["담임 선생님"] = $("f_teacher").value.trim();
+  }
+  p["본인 연락처"]   = $("f_phone").value.trim();
+  p["본인 이메일"]   = $("f_email").value.trim();
+  p["보호자 성명"]   = $("f_pname").value.trim();
+  p["보호자 연락처"] = $("f_pphone").value.trim();
+
+  for (var i=0;i<MAX;i++){
+    var k = (i+1) + "순위";
+    if (arr[i]){
+      p[k] = arr[i].d.u + " / " + arr[i].d.t
+           + (arr[i].mj ? " / " + arr[i].mj : "")
+           + (arr[i].custom ? "  [직접 입력]" : "  [연번 " + arr[i].d.n + "]");
+    } else p[k] = "-";
+  }
+  p["선택 개수"] = String(arr.length) + "개";
+  p["비고"] = $("f_note").value.trim() || "-";
+  p["규정 전문 열람"] = "예";
+  if (KIND === "재학생") p["담임 선생님과 의논"] = "예";
+  p["세부 지원자격 본인 확인"] = "예";
+  p["제출일시"] = new Date().toLocaleString("ko-KR");
+  return p;
+}
+
+function fileName(p){
+  return "2027_학교장추천_희망원_" + (p["구분"]||"") + "_" + (p["성명"]||"") + ".png";
+}
+
+/* ---------- 희망원 이미지(PNG) 생성 ---------- */
+var docCanvas = null;
+var FONT = "'Malgun Gothic','맑은 고딕','Apple SD Gothic Neo',sans-serif";
+
+function buildDocImage(p){
+  var arr = pickList();
+  var d = new Date();
+  var ymd = d.getFullYear() + "년 " + (d.getMonth()+1) + "월 " + d.getDate() + "일";
+
+  var W = 1240, S = 2, M = 70;          // 논리 너비 / 해상도 배율 / 여백
+  var CW = W - M*2;                      // 본문 폭
+  var cv = document.createElement("canvas");
+  cv.width = W*S; cv.height = 2600*S;
+  var g = cv.getContext("2d");
+  g.scale(S,S);
+  g.fillStyle = "#fff"; g.fillRect(0,0,W,2600);
+  g.textBaseline = "middle";
+
+  function font(sz, w){ g.font = (w||"") + " " + sz + "px " + FONT; }
+  function txt(s, x, y, sz, w, col, al){
+    font(sz, w); g.fillStyle = col || "#111"; g.textAlign = al || "left";
+    g.fillText(s, x, y);
+  }
+  // 글자 줄바꿈: 폭에 맞춰 잘라 배열로 반환
+  function wrap(s, sz, w, maxw){
+    font(sz, w);
+    var out = [], line = "";
+    for (var i=0;i<s.length;i++){
+      var ch = s.charAt(i);
+      if (ch === "\n"){ out.push(line); line = ""; continue; }
+      if (g.measureText(line + ch).width > maxw && line){ out.push(line); line = ch; }
+      else line += ch;
+    }
+    out.push(line);
+    return out;
+  }
+
+  /* --- 워터마크 (학생 이름, 배경) --- */
+  var mark = p["성명"] || "";
+  if (mark){
+    g.save();
+    g.globalAlpha = 0.09;
+    g.fillStyle = "#1f4e8c";
+    g.textAlign = "center";
+    font(46, "800");
+    g.translate(W/2, 1300);
+    g.rotate(-Math.PI/6);
+    for (var wy=-1500; wy<1500; wy+=190){
+      for (var wx=-1100; wx<1100; wx+=430){
+        g.fillText(mark, wx, wy);
+      }
+    }
+    g.restore();
+    g.textBaseline = "middle";
+  }
+
+  var y = M;
+
+  /* --- 제목 --- */
+  txt("2027학년도 대입 수시모집", W/2, y+14, 27, "700", "#333", "center");
+  txt("학교장추천전형 지원 희망원", W/2, y+62, 42, "900", "#111", "center");
+  txt("창원경일고등학교", W/2, y+108, 22, "", "#555", "center");
+  y += 140;
+  g.strokeStyle = "#111"; g.lineWidth = 3;
+  g.beginPath(); g.moveTo(M, y); g.lineTo(W-M, y); g.stroke();
+  g.beginPath(); g.moveTo(M, y+5); g.lineTo(W-M, y+5); g.stroke();
+  y += 40;
+
+  /* --- 섹션 제목 --- */
+  function section(t){
+    y += 14;
+    g.fillStyle = "#eef1f5"; g.fillRect(M, y, CW, 42);
+    g.fillStyle = "#333"; g.fillRect(M, y, 6, 42);
+    txt(t, M+18, y+22, 22, "800", "#1c1f23");
+    y += 42 + 10;
+  }
+
+  /* --- 표: 라벨/값 --- */
+  function inforow(k, v){
+    var h = 44, lw = 230;
+    g.strokeStyle = "#777"; g.lineWidth = 1;
+    g.fillStyle = "rgba(244,245,247,.88)"; g.fillRect(M, y, lw, h);
+    g.strokeRect(M, y, lw, h);
+    g.strokeRect(M+lw, y, CW-lw, h);
+    txt(k, M+14, y+h/2, 20, "700", "#222");
+    txt(v || "-", M+lw+14, y+h/2, 20, "", "#111");
+    y += h;
+  }
+
+  /* 1. 인적사항 */
+  section("1. 인적사항");
+  inforow("구분", p["구분"]);
+  inforow("성명", p["성명"]);
+  inforow("생년월일", p["생년월일"]);
+  if (KIND === "졸업생"){
+    inforow("졸업연도", p["졸업연도"]);
+    inforow("졸업 당시 3학년 반", p["졸업 당시 3학년 반"]);
+  } else {
+    inforow("현재 학년·반·번호", p["현재 학년·반·번호"]);
+    inforow("담임 선생님", p["담임 선생님"]);
+  }
+  inforow("본인 연락처", p["본인 연락처"]);
+  if (p["본인 이메일"]) inforow("본인 이메일", p["본인 이메일"]);
+  inforow("보호자 성명", p["보호자 성명"]);
+  inforow("보호자 연락처", p["보호자 연락처"]);
+
+  /* 2. 지원 희망 대학 */
+  section("2. 지원 희망 대학 (우선순위 순)");
+  var cols = [110, 330, 380, CW-110-330-380];
+  function unirow(c1, c2, c3, c4, head){
+    var h = 46, x = M;
+    g.lineWidth = 1; g.strokeStyle = "#777";
+    var vals = [c1,c2,c3,c4];
+    for (var i=0;i<4;i++){
+      if (head){ g.fillStyle = "rgba(244,245,247,.92)"; g.fillRect(x, y, cols[i], h); }
+      g.strokeRect(x, y, cols[i], h);
+      txt(vals[i], i===0 ? x+cols[i]/2 : x+13, y+h/2, 20, head?"700":"", "#111", i===0?"center":"left");
+      x += cols[i];
+    }
+    y += h;
+  }
+  unirow("순위","대학명","전형명","희망 모집단위", true);
+  for (var i=0;i<MAX;i++){
+    var a = arr[i];
+    unirow((i+1)+"순위",
+      a ? (a.d.u + (a.custom ? " (직접입력)" : "")) : "-",
+      a ? a.d.t : "-",
+      a && a.mj ? a.mj : "-", false);
+  }
+
+  /* 3. 비고 */
+  section("3. 비고 / 추가 기재사항");
+  var noteTxt = (p["비고"] === "-" ? "" : p["비고"]);
+  var nlines = noteTxt ? wrap(noteTxt, 20, "", CW-28) : [""];
+  var nh = Math.max(70, nlines.length*30 + 22);
+  g.strokeStyle = "#777"; g.lineWidth = 1; g.strokeRect(M, y, CW, nh);
+  for (var ni=0; ni<nlines.length; ni++) txt(nlines[ni], M+14, y+24+ni*30, 20, "", "#111");
+  y += nh;
+
+  /* 4. 확인 및 동의 */
+  section("4. 확인 및 동의");
+  var agree = "본인은 2027학년도 대입 수시전형 학교장추천전형 추천대상자 선발에 지원하고자 위와 같이 희망원을 제출하며, "
+    + "기재 내용이 사실과 다름이 없음을 확인합니다. 또한 추천 대상자 선발을 위한 개인정보(성명, 생년월일, 연락처, "
+    + "학교생활기록부) 수집·이용에 동의합니다.\n"
+    + "· 학교장추천 대상자 선발 규정 전문을 읽고 이해하였습니다.\n"
+    + (KIND === "재학생" ? "· 담임 선생님과 지원 대학 및 우선순위를 의논하고 결정하였습니다.\n" : "")
+    + "· 계열·모집단위 등 세부 지원 자격을 각 대학 모집요강에서 직접 확인하였습니다.";
+  var alines = wrap(agree, 19, "", CW-28);
+  var ah = alines.length*29 + 22;
+  g.strokeStyle = "#777"; g.strokeRect(M, y, CW, ah);
+  for (var ai=0; ai<alines.length; ai++) txt(alines[ai], M+14, y+24+ai*29, 19, "", "#111");
+  y += ah + 30;
+
+  /* --- 날짜 및 서명 대체 --- */
+  txt(ymd, W-M, y+14, 22, "700", "#111", "right");
+  y += 46;
+  txt("지원자 : " + (p["성명"]||""), W-M, y+14, 22, "700", "#111", "right");
+  y += 38;
+  txt("보호자 : " + (p["보호자 성명"]||""), W-M, y+14, 22, "700", "#111", "right");
+  y += 46;
+
+  var sg = "※ 지원자 및 보호자의 서명은 본인 명의 휴대폰 문자 발송으로 대체합니다.";
+  g.fillStyle = "#fff7f6"; g.fillRect(M, y, CW, 52);
+  g.strokeStyle = "#c0261a"; g.lineWidth = 2; g.strokeRect(M, y, CW, 52);
+  txt(sg, W/2, y+26, 20, "700", "#c0261a", "center");
+  y += 52 + 40;
+
+  txt("창원경일고등학교장 귀하", W/2, y+16, 26, "800", "#111", "center");
+  y += 50;
+
+  /* --- 실제 높이로 잘라내기 --- */
+  var out = document.createElement("canvas");
+  out.width = W*S; out.height = (y + M)*S;
+  var og = out.getContext("2d");
+  og.fillStyle = "#fff"; og.fillRect(0,0,out.width,out.height);
+  og.drawImage(cv, 0, 0);
+  docCanvas = out;
+  return out;
+}
+
+function asText(p){
+  var lines = ["■ 2027학년도 학교장추천전형 지원 희망원 — 창원경일고등학교", ""];
+  for (var k in p){ if (k.charAt(0) === "_") continue; lines.push(k + " : " + p[k]); }
+  return lines.join("\n");
+}
+
+function smsText(p){
+  var arr = pickList(), u = [];
+  for (var i=0;i<arr.length;i++) u.push((i+1) + "." + arr[i].d.u);
+  var who = p["구분"] === "졸업생"
+    ? p["졸업연도"] + "년 졸업, " + p["졸업 당시 3학년 반"]
+    : p["현재 학년·반·번호"];
+  return "[학교장추천 희망원 제출] " + p["성명"] + " (" + who + ") "
+       + "희망원 이미지 첨부해 보냅니다. " + u.join(" ") + " / 연락처 " + p["본인 연락처"];
+}
+
+/* ---------- 발송 ---------- */
+$("btnSend").onclick = function(){
+  var errs = validate();
+  if (errs.length){ showErr("아래 항목을 확인해 주세요.", errs); return; }
+  hideErr();
+  showDone(buildPayload());
+};
+
+function showDone(payload){
+  var sms = smsText(payload);
+  var fn = fileName(payload);
+
+  var cv = buildDocImage(payload);
+  $("docImg").src = cv.toDataURL("image/png");
+
+  $("app").style.display = "none";
+  var fb = document.querySelector(".footbar"); if (fb) fb.style.display = "none";
+
+  $("doneBody").textContent = asText(payload);
+  $("fnameHint").textContent = fn;
+
+  $("btnSaveImg").onclick = function(){ saveImage(fn); };
+  setupShare(fn, sms);
+
+  $("smsSample").innerHTML = '<b style="display:block; margin-bottom:4px; font-size:13px; color:#6b7280">문자 예시</b>' + esc(sms);
+  $("smsLink").href = "sms:" + TEACHER_TEL.replace(/-/g,"") + "?body=" + encodeURIComponent(sms);
+  $("btnCopySms").onclick = function(){ copyText(sms, this, "문자 내용 복사"); };
+
+  $("btnBack").onclick = function(){
+    $("doneScreen").classList.remove("show");
+    $("app").style.display = "";
+    if (fb) fb.style.display = "";
+    window.onbeforeunload = function(){ if (countPicks()) return "작성 중인 내용이 사라집니다."; };
+    if (window.scrollTo) { try { window.scrollTo(0,0); } catch(e){} }
+  };
+
+  $("doneScreen").classList.add("show");
+  window.onbeforeunload = null;
+  if (window.scrollTo) { try { window.scrollTo(0,0); } catch(e){} }
+}
+
+/* ---------- 이미지 저장 / 공유 ---------- */
+function canvasToFile(fn, cb){
+  if (!docCanvas) return;
+  if (docCanvas.toBlob){
+    docCanvas.toBlob(function(blob){
+      if (!blob) return;
+      cb(blob, new File([blob], fn, {type:"image/png"}));
+    }, "image/png");
+  } else {
+    // 구형 브라우저: dataURL → Blob
+    var b = atob(docCanvas.toDataURL("image/png").split(",")[1]);
+    var u8 = new Uint8Array(b.length);
+    for (var i=0;i<b.length;i++) u8[i] = b.charCodeAt(i);
+    var blob = new Blob([u8], {type:"image/png"});
+    cb(blob, new File([blob], fn, {type:"image/png"}));
+  }
+}
+
+function saveImage(fn){
+  canvasToFile(fn, function(blob){
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url; a.download = fn;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  });
+}
+
+/* 휴대폰에서 이미지를 문자 앱으로 바로 공유 (지원 기기만 노출) */
+function setupShare(fn, sms){
+  var btn = $("btnShareImg");
+  if (!navigator.share || !navigator.canShare || typeof File === "undefined") return;
+  var probe;
+  try { probe = new File([new Blob(["x"],{type:"image/png"})], fn, {type:"image/png"}); }
+  catch(e){ return; }
+  if (!navigator.canShare({files:[probe]})) return;
+
+  btn.style.display = "";
+  btn.onclick = function(){
+    canvasToFile(fn, function(blob, file){
+      navigator.share({ files:[file], text: sms }).catch(function(){});
+    });
+  };
+}
+
+/* ---------- 복사 ---------- */
+function copyText(txt, btn, orig){
+  function ok(){ if(btn){ btn.textContent = "복사됨 ✓"; setTimeout(function(){ btn.textContent = orig; }, 1800);} }
+  function fallback(){
+    var ta = document.createElement("textarea");
+    ta.value = txt; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); ok(); } catch(e){ alert(txt); }
+    document.body.removeChild(ta);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(txt).then(ok, fallback);
+  else fallback();
+}
+$("btnCopy").onclick = function(){ copyText(asText(buildPayload()), this, "내용 복사"); };
+
+/* ---------- 필터 ---------- */
+$("search").oninput = function(){ state.q = this.value.trim().toLowerCase(); render(); update(); };
+$("chipMin").onclick = function(){ state.onlyMin = !state.onlyMin; this.classList.toggle("on", state.onlyMin); render(); update(); };
+$("chipSel").onclick = function(){ state.onlySel = !state.onlySel; this.classList.toggle("on", state.onlySel); render(); update(); };
+
+/* ---------- 입력 보조 ---------- */
+function hyphen(id){
+  $(id).oninput = function(){
+    var v = this.value.replace(/[^0-9]/g,"").slice(0,11);
+    if (v.length > 7) this.value = v.slice(0,3)+"-"+v.slice(3,7)+"-"+v.slice(7);
+    else if (v.length > 3) this.value = v.slice(0,3)+"-"+v.slice(3);
+    else this.value = v;
+  };
+}
+hyphen("f_phone"); hyphen("f_pphone");
+
+$("f_birth").oninput = function(){
+  var v = this.value.replace(/[^0-9]/g,"").slice(0,8);
+  if (v.length > 6) this.value = v.slice(0,4)+"-"+v.slice(4,6)+"-"+v.slice(6);
+  else if (v.length > 4) this.value = v.slice(0,4)+"-"+v.slice(4);
+  else this.value = v;
+};
+
+window.onbeforeunload = function(){ if (countPicks()) return "작성 중인 내용이 사라집니다."; };
+
+render(); update();
+</script>
+</body>
+</html>
