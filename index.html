@@ -357,7 +357,7 @@
   <div class="deadline">
     <div class="dl-left">
       <div class="dl-lab">제출 마감</div>
-      <div class="dl-date">8월 23일</div>
+      <div class="dl-date">8월 24일<span style="font-size:22px; font-weight:800">(월)</span></div>
       <div class="dl-sub" id="dday"></div>
     </div>
     <div class="dl-right">
@@ -534,7 +534,7 @@
 
   <div class="footbar">
     <div class="footinner">
-      <div class="status" id="status"><b>마감 8월 23일.</b> 인적사항과 희망 대학을 모두 입력한 뒤 제출하세요.</div>
+      <div class="status" id="status"><b>마감 8월 24일(월).</b> 인적사항과 희망 대학을 모두 입력한 뒤 제출하세요.</div>
       <button type="button" class="ghost" id="btnCopy">내용 복사</button>
       <button type="button" class="primary" id="btnSend">작성 완료 · 제출하기</button>
     </div>
@@ -825,8 +825,8 @@ function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").rep
 (function(){
   var now = new Date();
   var y = now.getFullYear();
-  var due = new Date(y, 7, 23, 23, 59, 59);          // 8월 23일
-  if (now > due) due = new Date(y + 1, 7, 23, 23, 59, 59);
+  var due = new Date(y, 7, 24, 23, 59, 59);          // 8월 24일(월)
+  if (now > due) due = new Date(y + 1, 7, 24, 23, 59, 59);
   var days = Math.ceil((due - now) / 86400000);
   $("dday").textContent = days > 0 ? "D-" + days : (days === 0 ? "오늘 마감" : "");
 })();
